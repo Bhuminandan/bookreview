@@ -8,6 +8,7 @@ require('dotenv').config();
 // Importing routes
 const authRoutes = require('./routes/auth.route');
 const bookRoutes = require('./routes/book.route');
+const reviewRoutes = require('./routes/review.route');
 
 // App configuration
 const app = express();
@@ -24,7 +25,8 @@ app.use(bodyParser.json());
 
 // Registering routes
 app.use('/api/auth', authRoutes);
-app.use('/api/book', bookRoutes);
+app.use('/api/books', bookRoutes);
+app.use('/api/reviews', reviewRoutes);
 
 app.use(errorHandler); 
 

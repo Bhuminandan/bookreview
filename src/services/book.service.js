@@ -4,6 +4,7 @@ const { Op } = require('sequelize');
 
 class BookService {
     static async getAllBooks(page, size, author, genre) {
+        // Dinamically generating where clause
         const where = {};
         if (author) where.author = author;
         if (genre) where.genre = genre;
@@ -18,6 +19,7 @@ class BookService {
     }
 
     static async createBook({ title, author, genre, created_by }) {
+        // Check if user exists
         const user = await User.findOne({
             where: {
                 id: created_by
@@ -30,6 +32,8 @@ class BookService {
     }
 
     static async searchBooks({ title, author }) {
+
+        // Case-insensitive search on title and author, allowing partial matches
         const books = await Book.findAll({
             where: {
                 [Op.or]: [
@@ -39,6 +43,22 @@ class BookService {
             },
         });
         return books;
+    }
+
+    static async getDetails(id, page, size) {
+        const book = await Book.findByPk(id);
+        if (!book) throw new AppError('Book not found', 404);
+
+        // Average rating
+        const reviews = await book.getReviews({
+            limit: size,
+            offset: (page - 1) * size
+        })
+        const total = reviews.length;
+        const sum = reviews.reduce((acc, review) => acc + review.rating, 0);
+        const averageRating = total > 0 ? sum / total : 0;
+        book.dataValues.averageRating = averageRating;  
+        return book;
     }
 }
 
