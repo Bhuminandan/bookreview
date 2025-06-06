@@ -10,7 +10,7 @@ const authMiddleware = require('../middlewares/auth.middleware');
 const validate = require('../middlewares/validate.middleware');
 
 router.post('/', authMiddleware, bookValidator, validate, BookController.create);
-router.get('/', authMiddleware, BookController.getAllBooks);
+router.get('/', BookController.getAllBooks);
 router.get('/search', BookController.search);
 router.post('/:id/reviews', authMiddleware, reviewValidator, validate, ReviewController.createReview);
 router.get('/:id', BookController.getDetails);

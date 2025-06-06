@@ -4,7 +4,7 @@ const { successResponse } = require('../utils/responseHandler');
 class ReviewController {
     async updateReview(req, res, next) {
         try {
-            await ReviewService.updateReview(req.body, req.params.id);
+            await ReviewService.updateReview(req.body, req.params.id, req.user.id);
             return successResponse(res, 'Review updated successfully');
         } catch (error) {
             return next(error);

@@ -3,11 +3,16 @@ const { Review, User, Book } = require('../models');
 const AppError = require('../utils/appError');
 
 class ReviewService {
-    static async updateReview({ rating, comment }, id) {
-       const review = await Review.findByPk(id);
+    static async updateReview({ rating, comment }, id, user_id) {
+       const review = await Review.findOne({
+        where : {
+            id,
+            user_id
+        }
+       })
        if (!review) throw new AppError('Review not found', 404);
-
-       await Review.update({ rating, comment });
+       const res = await review.update({ rating, comment });
+       return res;
     }
 
     static async createReview({ rating, comment }, book_id, user_id) {

@@ -1,6 +1,7 @@
-const { Book, User} = require('../models');
+const { Book, User, Review} = require('../models');
 const AppError = require('../utils/appError');
 const { Op } = require('sequelize');
+const { Sequelize } = require('sequelize');
 
 class BookService {
     static async getAllBooks(page, size, author, genre) {
@@ -50,15 +51,27 @@ class BookService {
         if (!book) throw new AppError('Book not found', 404);
 
         // Average rating
-        const reviews = await book.getReviews({
+        const reviews = await Review.findAll({
+            where: {
+                book_id: id,
+            },
             limit: size,
-            offset: (page - 1) * size
+            offset: (page - 1) * size,
+            order: [['created_at', 'DESC']],
         })
-        const total = reviews.length;
-        const sum = reviews.reduce((acc, review) => acc + review.rating, 0);
-        const averageRating = total > 0 ? sum / total : 0;
-        book.dataValues.averageRating = averageRating;  
-        return book;
+
+        const [result] = await Review.findAll({
+        where: { book_id: id },
+        attributes: [[Sequelize.fn('AVG', Sequelize.col('rating')), 'averageRating']],
+        raw: true,
+        });
+        const averageRating = result?.averageRating ? parseFloat(result.averageRating).toFixed(2) : null;
+
+        return {
+            book,
+            reviews,
+            averageRating
+        };
     }
 }
 

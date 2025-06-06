@@ -54,8 +54,8 @@ class BookController {
     async getDetails(req, res, next) {
         try {
             const bookId = req.params.id;
-            const page = parseInt(req.query.page) || 1;
-            const size = parseInt(req.query.size) || 5;
+            const page = req.query.page || 1;
+            const size = req.query.size || 5;
             const book = await BookService.getDetails(bookId, page, size);
             return successResponse(res, book);
         } catch (error) {
