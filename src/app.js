@@ -4,6 +4,9 @@ const cors = require('cors');
 const { sequelize } = require('./models');
 require('dotenv').config(); 
 
+// Importing routes
+const authRoutes = require('./routes/auth.route');
+
 // App configuration
 const app = express();
 app.set('title', 'My Express App');
@@ -17,6 +20,8 @@ app.use(cors({
 }));
 app.use(bodyParser.json());
 
+// Registering routes
+app.use('/api/auth', authRoutes);
 
 // Starting the server
 sequelize.authenticate()
