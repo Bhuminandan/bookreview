@@ -2,10 +2,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const { sequelize } = require('./models');
+const errorHandler = require('./middlewares/error.middleware');
 require('dotenv').config(); 
 
 // Importing routes
 const authRoutes = require('./routes/auth.route');
+const bookRoutes = require('./routes/book.route');
 
 // App configuration
 const app = express();
@@ -22,12 +24,15 @@ app.use(bodyParser.json());
 
 // Registering routes
 app.use('/api/auth', authRoutes);
+app.use('/api/book', bookRoutes);
+
+app.use(errorHandler); 
 
 // Starting the server
 sequelize.authenticate()
   .then(() => {
     console.log('Database connected successfully');
-    return sequelize.sync({ alter: true });
+    return sequelize.sync({ alter: false });
   })
   .then(() => {
     app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
