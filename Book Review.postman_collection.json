@@ -1,0 +1,281 @@
+{
+	"info": {
+		"_postman_id": "55393922-5a57-4116-96d0-1532598bcd58",
+		"name": "Book Review",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "29909661"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "LOGIN",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"test@user.com\",\r\n    \"password\" : \"test2F@dssf\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/api/auth/login"
+					},
+					"response": []
+				},
+				{
+					"name": "REGISTER",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"test@user.com\",\r\n    \"name\" : \"test\",\r\n    \"password\" : \"test2F@dssf\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/api/auth/signup"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "BOOKS",
+			"item": [
+				{
+					"name": "GET ALL BOOKS",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "authMiddleware,"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"author\" : \"\",\r\n    \"genre\" : \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/books?page=1&size=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"books"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET DETAILS",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "authMiddleware,"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"author\" : \"\",\r\n    \"genre\" : \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/books/2846a0dd-3480-45d8-8758-53672c48e703?page=1&size=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"books",
+								"2846a0dd-3480-45d8-8758-53672c48e703"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE BOOK",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU0MThlY2ZiLThkMjAtNDQ2Zi04N2IwLWQxYzExZWIwNzhiNiIsImVtYWlsIjoidGVzdEB1c2VyLmNvbSIsImlhdCI6MTc0OTIyODU4NSwiZXhwIjoxNzQ5MjMyMTg1fQ.QeXU-GnNrzz4TkIXUApi0jPFbiZTdxJuA3Rk7LoWjTI"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Bos Paitn\",\n  \"author\": \"test\",\n  \"genre\": \"Trhiller\",\n  \"created_by\" : \"e418ecfb-8d20-446f-87b0-d1c11eb078b6\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/api/books"
+					},
+					"response": []
+				},
+				{
+					"name": "SUBMIT REVIEW",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU0MThlY2ZiLThkMjAtNDQ2Zi04N2IwLWQxYzExZWIwNzhiNiIsImVtYWlsIjoidGVzdEB1c2VyLmNvbSIsImlhdCI6MTc0OTIyODU4NSwiZXhwIjoxNzQ5MjMyMTg1fQ.QeXU-GnNrzz4TkIXUApi0jPFbiZTdxJuA3Rk7LoWjTI"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"rating\": 5,\n  \"comment\": \"Took 5 days to read\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/api/books/2846a0dd-3480-45d8-8758-53672c48e703/reviews"
+					},
+					"response": []
+				},
+				{
+					"name": "SEARCH",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxODY3NTFmLTk5ZDItNDU0ZC1hYjYwLTk4ZDUzYzkzOGZmNyIsImVtYWlsIjoiZUBzLmNvbSIsImlhdCI6MTc0OTIxMDkxMSwiZXhwIjoxNzQ5MjE0NTExfQ.x_H5T8WrLJ9kEJGawFl6dh8m7LDLpWPEykGOy5RE-cQ"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Harry\",\n  \"author\": \"ch\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/api/books/search"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "REVIEWS",
+			"item": [
+				{
+					"name": "CREATE BOOK",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU0MThlY2ZiLThkMjAtNDQ2Zi04N2IwLWQxYzExZWIwNzhiNiIsImVtYWlsIjoidGVzdEB1c2VyLmNvbSIsImlhdCI6MTc0OTIyODU4NSwiZXhwIjoxNzQ5MjMyMTg1fQ.QeXU-GnNrzz4TkIXUApi0jPFbiZTdxJuA3Rk7LoWjTI"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"rating\" : 3,\n  \"comment\" : \"I changed my mind, its long\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/api/reviews/b85473af-2601-4ccc-8191-7c5874808b4c"
+					},
+					"response": []
+				},
+				{
+					"name": "SEARCH",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU0MThlY2ZiLThkMjAtNDQ2Zi04N2IwLWQxYzExZWIwNzhiNiIsImVtYWlsIjoidGVzdEB1c2VyLmNvbSIsImlhdCI6MTc0OTIyODU4NSwiZXhwIjoxNzQ5MjMyMTg1fQ.QeXU-GnNrzz4TkIXUApi0jPFbiZTdxJuA3Rk7LoWjTI"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Boo\",\n  \"author\": \"ch\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/api/reviews/b85473af-2601-4ccc-8191-7c5874808b4c"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
