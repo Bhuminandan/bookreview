@@ -59,6 +59,25 @@ The API will be available at `http://localhost:3000`
 
 ## 📚 API Documentation
 
+## 🧰 Postman Collection
+
+Streamline your API testing with our ready-to-use Postman collection. The `Book Review.postman_collection.json` file is included in the project's root directory for your convenience.
+
+### 📥 How to Use:
+
+1. **Download the Collection**  
+   Locate `Book Review.postman_collection.json` in the project's root folder
+
+2. **Import into Postman**
+
+   - Open Postman
+   - Click **Import** > **Upload Files**
+   - Select the downloaded JSON file
+
+3. **Configure Authentication**
+   - First, obtain your JWT token by calling the `POST /api/auth/login` endpoint
+   - Set this token as a Bearer token in the Authorization tab
+
 ### Authentication
 
 | Endpoint           | Method | Description         |
@@ -98,15 +117,7 @@ curl -X GET "http://localhost:3000/api/books?page=1&size=5" \
 | `/api/reviews/:reviewId`     | PUT    | Update review |
 | `/api/reviews/:reviewId`     | DELETE | Remove review |
 
-## 🧰 Postman Collection
-
-Import the provided Postman collection for easy API testing:
-
-1. Open Postman
-2. Click **Import** > Select `Book Review.postman_collection.json`
-3. Set environment variables:
-   - `base_url`: Your server URL
-   - `auth_token`: JWT token after login
+Here's the improved Postman section with your requested additions:
 
 ## 🏗️ Architecture
 
