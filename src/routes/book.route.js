@@ -11,8 +11,8 @@ const validate = require('../middlewares/validate.middleware');
 
 router.post('/', authMiddleware, bookValidator, validate, BookController.create);
 router.get('/', BookController.getAllBooks);
+router.get('/:id', BookController.getDetails);
 router.get('/search', BookController.search);
 router.post('/:id/reviews', authMiddleware, reviewValidator, validate, ReviewController.createReview);
-router.get('/:id', BookController.getDetails);
 
 module.exports = router

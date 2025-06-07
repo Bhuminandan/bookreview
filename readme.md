@@ -1,199 +1,125 @@
-````markdown
-## 📚 Book Review Backend API
+# 📚 Book Review Backend API
 
-An Express-based RESTful API for managing books and user-submitted reviews. This backend service supports user authentication, book cataloging, reviews, and search functionalities.
+A robust Express.js RESTful API for managing books and user reviews with secure authentication, comprehensive CRUD operations, and advanced filtering capabilities.
 
----
+![License](https://img.shields.io/badge/License-MIT-green)
 
-## 🚀 Features
+## ✨ Key Features
 
-- User Signup & Login (JWT-based authentication)
-- Add, fetch, and search books
-- Submit, update, and delete reviews
-- Pagination and filtering support
+| Feature                | Description                                            |
+| ---------------------- | ------------------------------------------------------ |
+| 🔐 **Secure Auth**     | JWT-based user authentication with role management     |
+| 📖 **Book Management** | Full CRUD operations for books with search & filtering |
+| 📝 **Review System**   | Users can submit, update, and delete their reviews     |
+| ⚡ **Performance**     | Pagination and optimized queries for large datasets    |
+| 🛡️ **Validation**      | Comprehensive input validation for all endpoints       |
 
----
+## 🛠️ Installation & Setup
 
-## 📦 Project Setup
+### Prerequisites
 
-1. **Clone the repository**
+- Node.js v18+
+- PostgreSQL
+- npm/yarn
+
+### 1. Clone Repository
 
 ```bash
-git clone https://github.com/Bhuminandan/bookreview
+git clone https://github.com/Bhuminandan/bookreview.git
 cd bookreview
 ```
-````
 
-2. **Install dependencies**
+### 2. Install Dependencies
 
 ```bash
 npm install
 ```
 
-3. **Set up environment variables**
-
-Create a `.env` file in the root directory based on the provided `.env.sample`:
+### 3. Configure Environment
 
 ```bash
 cp .env.sample .env
 ```
 
-Update values in `.env` as needed (like `DB_URL`, `JWT_SECRET`, etc.).
+## 🚀 Running the Server
 
----
-
-## 🧪 Running Locally
-
-1. **Start the development server**
+### Development Mode (with hot-reload)
 
 ```bash
 npm run dev
 ```
 
-2. **Server will run at**
-
-```
-http://localhost:3000
-```
-
----
-
-## 🔌 API Usage
-
-### 🔐 Auth
-
-**Register**
+### Production Mode
 
 ```bash
-curl -X POST http://localhost:3000/api/auth/signup \
--H "Content-Type: application/json" \
--d '{
-  "email": "test@user.com",
-  "name": "Test User",
-  "password": "test2F@dssf"
-}'
+npm start
 ```
 
-**Login**
+The API will be available at `http://localhost:3000`
+
+## 📚 API Documentation
+
+### Authentication
+
+| Endpoint           | Method | Description         |
+| ------------------ | ------ | ------------------- |
+| `/api/auth/signup` | POST   | Register new user   |
+| `/api/auth/login`  | POST   | Login existing user |
+
+**Example Request:**
 
 ```bash
 curl -X POST http://localhost:3000/api/auth/login \
--H "Content-Type: application/json" \
--d '{
-  "email": "test@user.com",
-  "password": "test2F@dssf"
-}'
+  -H "Content-Type: application/json" \
+  -d '{"email": "user@example.com", "password": "securePassword123!"}'
 ```
 
----
+### Books Endpoints
 
-### 📖 Books
+| Endpoint            | Method | Description                   |
+| ------------------- | ------ | ----------------------------- |
+| `/api/books`        | GET    | Get paginated book list       |
+| `/api/books/search` | GET    | Search books with filters     |
+| `/api/books`        | POST   | Add new book                  |
+| `/api/books/:id`    | GET    | Get book details with reviews |
 
-**Get all books (paginated)**
+**Example Pagination:**
 
 ```bash
-curl -X GET "http://localhost:3000/api/books?page=1&size=2" \
--H "Authorization: Bearer <JWT_TOKEN>"
+curl -X GET "http://localhost:3000/api/books?page=1&size=5" \
+  -H "Authorization: Bearer your.jwt.token"
 ```
 
-**Get book details (with reviews)**
+### Reviews Endpoints
 
-```bash
-curl -X GET "http://localhost:3000/api/books/<BOOK_ID>?page=1&size=10" \
--H "Authorization: Bearer <JWT_TOKEN>"
-```
+| Endpoint                     | Method | Description   |
+| ---------------------------- | ------ | ------------- |
+| `/api/books/:bookId/reviews` | POST   | Add review    |
+| `/api/reviews/:reviewId`     | PUT    | Update review |
+| `/api/reviews/:reviewId`     | DELETE | Remove review |
 
-**Create a book**
+## 🧰 Postman Collection
 
-```bash
-curl -X POST http://localhost:3000/api/books \
--H "Authorization: Bearer <JWT_TOKEN>" \
--H "Content-Type: application/json" \
--d '{
-  "title": "The Great Gatsby",
-  "author": "F. Scott Fitzgerald",
-  "genre": "Classic",
-  "created_by": "<USER_ID>"
-}'
-```
-
-**Search books**
-
-```bash
-curl -X GET http://localhost:3000/api/books/search \
--H "Authorization: Bearer <JWT_TOKEN>" \
--H "Content-Type: application/json" \
--d '{
-  "title": "Harry",
-  "author": "ch"
-}'
-```
-
----
-
-### 📝 Reviews
-
-**Submit a review**
-
-```bash
-curl -X POST http://localhost:3000/api/books/<BOOK_ID>/reviews \
--H "Authorization: Bearer <JWT_TOKEN>" \
--H "Content-Type: application/json" \
--d '{
-  "rating": 5,
-  "comment": "Amazing read!"
-}'
-```
-
-**Update a review**
-
-```bash
-curl -X PUT http://localhost:3000/api/reviews/<REVIEW_ID> \
--H "Authorization: Bearer <JWT_TOKEN>" \
--H "Content-Type: application/json" \
--d '{
-  "rating": 4,
-  "comment": "Changed my mind, still good!"
-}'
-```
-
-**Delete a review**
-
-```bash
-curl -X DELETE http://localhost:3000/api/reviews/<REVIEW_ID> \
--H "Authorization: Bearer <JWT_TOKEN>"
-```
-
----
-
-## 📂 Postman Collection
-
-You can import the full collection using the provided Postman file:
-
-**`Book Review.postman_collection.json`**
-✅ Includes login, register, create/read/update books and reviews.
-
-To use:
+Import the provided Postman collection for easy API testing:
 
 1. Open Postman
-2. Click **Import** > Upload the `.json` file
-3. Set your JWT token in the **Authorization** tab or use environment variables
+2. Click **Import** > Select `Book Review.postman_collection.json`
+3. Set environment variables:
+   - `base_url`: Your server URL
+   - `auth_token`: JWT token after login
 
----
+## 🏗️ Architecture
 
-## 🧠 Design Decisions & Assumptions
+### Key Components
 
-- **Authentication**: JWT-based login. All book and review APIs are protected except `/auth` routes.
-- **Data Validation**: Basic validation with `express-validator`. Extendable for production-grade validation.
-- **Pagination**: Implemented for book listings and reviews under query params `?page=1&size=10`.
-- **Filtering**: Books can be filtered using title, author, and genre.
-- **Review Updates**: Only the creator of a review can update or delete it.
-- **Database**: Assumes a PostgreSQL instance, connection configured in `.env`.
+- **Authentication**: JWT with refresh token support
+- **Database**: PostgreSQL with Sequelize ORM
+- **Validation**: Express-validator middleware
+- **Error Handling**: Custom error classes and middleware
+- **Pagination**: Offset-based with page/size parameters
 
----
+## 📜 License
 
-## 🪪 License
-
-MIT
+Distributed under the MIT License. See `LICENSE` for more information.
 
 ---

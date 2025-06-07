@@ -40,7 +40,7 @@ class ReviewController {
 
     async deleteReview(req, res, next) {
         try {
-            await ReviewService.deleteReview(req.params.id);
+            await ReviewService.deleteReview(req.params.id, req.user.id);
             return successResponse(res, 'Review deleted successfully');
         } catch (error) {
             return next(error);

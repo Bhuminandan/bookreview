@@ -29,7 +29,9 @@ class ReviewService {
         return review;
     }
 
-    static async deleteReview(id) {
+    static async deleteReview(id, user_id) {
+        const review = await Review.findOne({ where: { id, user_id } });
+        if (!review) throw new AppError('Review not found', 404);
         await Review.destroy({ where: { id } });
     }
 }
